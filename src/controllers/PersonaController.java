@@ -27,29 +27,26 @@ public class PersonaController {
             }
             return personasFiltradas;
     }
-    public Map<String, Set<String>> agruparPorRangoEdad(
-        List<Persona> personas){
-            Map<String, Set<String>> personasAgrupadas = new TreeMap<>();
-            personasAgrupadas.put("JOVEN", new LinkedHashSet<String>());
-            personasAgrupadas.put("ADULTO", new LinkedHashSet<String>());
-            personasAgrupadas.put("MAYOR", new LinkedHashSet<String>());
-            for(Persona persona : personas){
-                String primerNombre = persona.getNombre().split(" ")[0];
-                //identificar el frupo de edad: joven adunto mayor
-                if(persona.getEdad() < 18 ){
-                    primerNombre = "Joven";
-                }else if(
-                    persona.getEdad() <= 30){
-                    primerNombre = "Adulto"; 
-                }else{
-                    primerNombre = "Mayor";
-                }
-                
-                //saco el nombre juan perez"Juan"
-                //guardo en el mapa joven:(juan)
-            }
+    public Map<String, Set<String>> agruparPorRangoEdad(List<Persona> personas) {
+    Map<String, Set<String>> personasAgrupadas = new TreeMap<>();
 
+    personasAgrupadas.put("JOVEN", new LinkedHashSet<>());
+    personasAgrupadas.put("ADULTO", new LinkedHashSet<>());
+    personasAgrupadas.put("MAYOR", new LinkedHashSet<>());
 
+    for (Persona persona : personas) {
+        String primerNombre = persona.getNombre().split(" ")[0];
+        String grupoEdad;
+        if (persona.getEdad() < 18) {
+            grupoEdad = "JOVEN";
+        } else if (persona.getEdad() <= 30) {
+            grupoEdad = "ADULTO";
+        } else {
+            grupoEdad = "MAYOR";
+        }
+        personasAgrupadas.get(grupoEdad).add(primerNombre);
     }
+    return personasAgrupadas;
+}
     
 }
